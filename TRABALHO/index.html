@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="listatelefonica">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Lista de contatos</title>
+    <style>
+        body {
+            background-color: darkgray;
+        }
+
+        .jumbotron {
+            margin-top: 30px;
+            width: 400px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .table {
+            margin-top: 20px;
+        }
+
+        .form-control {
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+    </style>
+
+    <script>
+        angular.module("listatelefonica", []);
+        angular.module("listatelefonica").controller("listatelefonicaCtrl", function ($scope) {
+            $scope.app = "Lista Telefonica";
+            $scope.contatos = [
+                { nome: "Pedro", telefone: "99998888"  },
+                { nome: "Ana", telefone: "99995558" },
+                { nome: "Julia", telefone: "99977788" }
+            ];
+            // // $scope.adicionarContato = function(){
+            // //     $scope.contatos.push({nome: $scope.nome, telefone: $scope.telefone});
+            //     Quebra do mantra
+            // // };
+            // $scope.adicionarContato = function(nome, telefone){
+            //     $scope.contatos.push({nome: nome, telefone: telefone});
+            //    pode melhorar mais
+            // };
+            $scope.adicionarContato = function (contato) {
+                $scope.contatos.push(angular.copy((contato)));
+
+            };
+        });
+
+    </script>
+</head>
+
+<body ng-controller="listatelefonicaCtrl">
+
+    <div class="jumbotron">
+        <h4 ng-bind="app"></h4>
+        <table class="table table-striped">
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+            </tr>
+
+            <tr ng-repeat="contato in contatos">
+                <td>{{contato.nome}}</td>
+                <td>{{contato.telefone}}</td>
+                <!-- <td ng-repeat="(key,value) in contato">
+                 {{value}}
+            </td> -->
+            </tr>
+        </table>
+        <hr />
+        <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome">
+        <input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone">
+        <!-- {{app}} -->
+        <button class="btn btn-primary" ng-click="adicionarContato(contato)">Adicionar Contato</button>
+    </div>
+
+</body>
+
+</html>
